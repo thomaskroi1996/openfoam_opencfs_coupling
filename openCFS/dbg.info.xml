@@ -1,0 +1,137 @@
+<?xml version="1.0"?>
+
+<cfsInfo status="running" infoWriteCounter="4" infoRejectCounter="0">
+  <summary>
+    <timer wall-clock="0.73s" wall="0.73" cpu="0.239328" calls="1"/>
+  </summary>
+  <header id="">
+    <environment started="2025-Oct-08 12:05:36" host="DESKTOP-FP4OP26"/>
+    <progOpts problem="dbg" parameterFile="/home/thk/openfoam_opencfs_coupling/openCFS/propagation.xml" schemaPath="/home/thk/cfs_precice/share/xml" meshFile="" logConfFile="" detailed="no">
+      <cfs version="25.08" name="Just Jacobians" build="RELEASE" git_commit="fc5a74722983ed26855722d9bffa6df0543b59fa" git_branch="thk_precice_opencfs" compiled="Oct  6 2025" exe="/home/thk/cfs_precice/build/bin/cfs"/>
+      <openmp CFS_NUM_THREADS="1" MKL_NUM_THREADS="1" OMP_NUM_THREADS="1"/>
+    </progOpts>
+    <domain>
+      <grids>
+        <timer wall-clock="0.066s" wall="0.066" cpu="0.066687" calls="1"/>
+        <grid gridId="default" dimensions="2" elements="20200" nodes="20200"/>
+      </grids>
+      <coordinateSystems>
+        <system name="default"/>
+      </coordinateSystems>
+      <regions>
+        <region name="bc" id="0" type="surface" regular="no" hom="yes" nodes="200" elems="200" isQuadratic="no"/>
+        <region name="internal" id="1" type="volume" regular="no" hom="yes" nodes="20200" elems="20000" isQuadratic="no"/>
+      </regions>
+      <namedNodes>
+        <nodes name="mic1" count="1" coord="(0.998887,-2.02605e-12)"/>
+        <nodes name="mic2" count="1" coord="(6.08913e-12,3)"/>
+      </namedNodes>
+      <namedElements>
+        <elements name="mic1e" count="1"/>
+        <elements name="mic2e" count="1"/>
+      </namedElements>
+    </domain>
+  </header>
+  <sequenceStep sequence="1">
+    <transient>
+      <header unit="s"/>
+      <init_transient>
+        <timer wall-clock="0.596s" wall="0.596" cpu="0.105375" calls="1"/>
+      </init_transient>
+    </transient>
+    <PDE>
+      <acoustic>
+        <header>
+          <region name="internal" damping="none"/>
+          <integrators>
+            <matrixBiLinearForms>
+              <bilinearForm integrator="LaplaceIntegrator" type="BBInt" complex="no" BOp="GradientOperator" region="internal">
+                <coef type="CoefFunctionConst" value="1"/>
+                <row pde="acoustic" functionId="0" result="acouPotential"/>
+                <column pde="acoustic" functionId="0" result="acouPotential"/>
+                <destination feMatrix="stiffness" feMatrixMapped="stiffness" feSecondMatrix="no_fe_matrix" feSecondMatrixFac="0.0  "/>
+                <attributes entryType="RealPart" counterPart="no" symmetric="yes" solutionDependent="no" updatedGeo="no"/>
+              </bilinearForm>
+              <bilinearForm integrator="MassIntegrator" type="BBInt" complex="no" region="internal">
+                <coef type="CoefFunctionConst" value="8.4800676151570631e-06"/>
+                <row pde="acoustic" functionId="0" result="acouPotential"/>
+                <column pde="acoustic" functionId="0" result="acouPotential"/>
+                <destination feMatrix="mass" feMatrixMapped="mass" feSecondMatrix="no_fe_matrix" feSecondMatrixFac="0.0  "/>
+                <attributes entryType="RealPart" counterPart="no" symmetric="yes" solutionDependent="no" updatedGeo="no"/>
+              </bilinearForm>
+            </matrixBiLinearForms>
+            <rhsLinearForms/>
+          </integrators>
+        </header>
+        <material name="air_20deg">
+          <regionList>
+            <region name="internal"/>
+          </regionList>
+          <property name="Acoustic_Bulk_Modulus" value="(141980,0)"/>
+          <property name="Acoustic_Sound_Speed" value="343.40004082682799"/>
+          <property name="Density" value="(1.204,0)"/>
+        </material>
+        <feSpaces>
+          <acouPotential>
+            <h1Nodal>
+              <regionList>
+                <internal/>
+                <default order="1"/>
+              </regionList>
+            </h1Nodal>
+          </acouPotential>
+        </feSpaces>
+      </acoustic>
+    </PDE>
+    <OLAS>
+      <acoustic>
+        <setup idbcHandling="elimination" staticCondensation="no">
+          <feFunctions totalNumEqns="20200" totalNumFreeEqns="20200" totalNumDirichlet="0">
+            <function id="0" name="acouPotential" numEqns="20200" lastFreeEqn="20200" numDirichlet="0">
+              <usedInBlocks>
+                <block id="0"/>
+              </usedInBlocks>
+            </function>
+          </feFunctions>
+          <sbmBlocks>
+            <block id="0" size="20200" lastFreeIndex="20200"/>
+          </sbmBlocks>
+        </setup>
+        <solver>
+          <pardiso>
+            <summary>
+              <setup>
+                <timer label="setup_pardiso" wall-clock="0s" wall="0" cpu="0" calls="0"/>
+              </setup>
+              <solve>
+                <timer label="solve_pardiso" wall-clock="0s" wall="0" cpu="0" calls="0"/>
+              </solve>
+            </summary>
+          </pardiso>
+        </solver>
+        <precond>
+          <idPrecond>
+            <summary>
+              <precond_Id_setup>
+                <timer wall-clock="0s" wall="0" cpu="0" calls="0"/>
+              </precond_Id_setup>
+              <precond_Id_run>
+                <timer wall-clock="0s" wall="0" cpu="0" calls="0"/>
+              </precond_Id_run>
+            </summary>
+          </idPrecond>
+        </precond>
+      </acoustic>
+      <graph_setup>
+        <timer wall-clock="0.068s" wall="0.068" cpu="0.03316" calls="1" sub="true"/>
+      </graph_setup>
+    </OLAS>
+    <analysis>
+      <summary>
+        <assemble>
+          <timer wall-clock="0s" wall="0" cpu="0" calls="0"/>
+        </assemble>
+      </summary>
+    </analysis>
+  </sequenceStep>
+</cfsInfo>

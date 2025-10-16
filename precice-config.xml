@@ -33,7 +33,7 @@
 
 <coupling-scheme:serial-explicit>
     <participants first="openFOAM" second="openCFS"/>
-    <max-time-windows value="20"/> 
+    <max-time-windows value="100"/> 
     <time-window-size value="5e-5"/>
     <exchange data="Pressure" mesh="openFOAMMesh" from="openFOAM" to="openCFS"/>
 </coupling-scheme:serial-explicit>

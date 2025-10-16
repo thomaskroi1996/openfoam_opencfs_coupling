@@ -22,8 +22,8 @@ xsi:schemaLocation="http://www.cfs++.org/simulation https://opencfs.gitlab.io/cf
 		<!-- Data Input -->
 		<input>
 			<hdf5 fileName="sourceRegion.cfs" />
-			<!-- <hdf5 fileName="PML.cfs" id="id2" />
-			<hdf5 fileName="propagationRegion.cfs" id="id3" /> -->
+			<hdf5 fileName="PML.cfs" id="id2" />
+			<hdf5 fileName="propagationRegion.cfs" id="id3" />
 		</input>
 		<!-- Data Output -->
 		<output>
@@ -54,20 +54,20 @@ xsi:schemaLocation="http://www.cfs++.org/simulation https://opencfs.gitlab.io/cf
 		<!-- Volume Regions -->
 		<regionList>
 			<region name="internal" material="air_20deg" />
-			<!-- <region name="prop" material="air_20deg" />
-			<region name="pml" material="air_20deg" /> -->
+			<region name="prop" material="air_20deg" />
+			<region name="pml" material="air_20deg" />
 		</regionList>
 		<!-- Surface Regions -->
 		<surfRegionList>
-			<!-- <surfRegion name="BC_IFin" />
+			<surfRegion name="BC_IFin" />
 			<surfRegion name="BC_IFout" />
 			<surfRegion name="bc" />
-			<surfRegion name="ifborder" /> -->
+			<surfRegion name="ifborder" />
 		</surfRegionList>
 		<!-- Non-conforming Interfaces -->
 		<ncInterfaceList>
-			<!-- <ncInterface name="NC1" primarySide="BC_IFin" secondarySide="bc" />
-			<ncInterface name="NC2" primarySide="ifborder" secondarySide="BC_IFout" /> -->
+			<ncInterface name="NC1" primarySide="BC_IFin" secondarySide="bc" />
+			<ncInterface name="NC2" primarySide="ifborder" secondarySide="BC_IFout" />
 		</ncInterfaceList>
 		<!-- User-defined Points -->
 		<elemList>
@@ -99,18 +99,18 @@ xsi:schemaLocation="http://www.cfs++.org/simulation https://opencfs.gitlab.io/cf
 
 		<!-- PDE Definition -->
 		<pdeList>
-			<acoustic formulation="acouPotential">
+			<acoustic formulation="acouPressure">
 				<!-- Computation Domain -->
 				<regionList>
 					<region name="internal" />
-					<!-- <region name="prop" />
-					<region name="pml" dampingId="myPml" /> -->
+					<region name="prop" />
+					<region name="pml" dampingId="myPml" />
 				</regionList>
 
 				<!-- Non-conforming Interface Definition -->
 				<ncInterfaceList>
-					<!-- <ncInterface name="NC1" formulation="Nitsche" />
-					<ncInterface name="NC2" formulation="Nitsche" /> -->
+					<ncInterface name="NC1" formulation="Nitsche" />
+					<ncInterface name="NC2" formulation="Nitsche" />
 				</ncInterfaceList>
 
 				<!-- Damping Model -->
@@ -123,16 +123,17 @@ xsi:schemaLocation="http://www.cfs++.org/simulation https://opencfs.gitlab.io/cf
 
 				<!-- Boundary Conditions and Volume Loads -->
 				<bcsAndLoads>
-					<!-- <rhsValues name="internal">
+					<rhsValues name="internal">
 						<grid>
-							<defaultGrid quantity="acouRhsLoad" dependtype="GENERAL"
+							<defaultGrid quantity="acouPressure" dependtype="GENERAL"
 								definedOn="node">
-								<globalFactor>
+								<!-- <globalFactor>
 									(-1.0 / (rho*c^2)) * fadeIn(tau, 1, t) *
-									((sqrt(x^2+y^2) lt 1.9)? exp(-0.5*(x^2+y^2)/sigma^2) : 0) </globalFactor>
-							</defaultGrid>
+									((sqrt(x^2+y^2) lt 1.9)? exp(-0.5*(x^2+y^2)/sigma^2) : 0) 
+								</globalFactor> -->
+							</defaultGrid> 
 						</grid>
-					</rhsValues> -->
+					</rhsValues>
 				</bcsAndLoads>
 
 				<!-- Results Definition -->
@@ -145,15 +146,15 @@ xsi:schemaLocation="http://www.cfs++.org/simulation https://opencfs.gitlab.io/cf
 						<coordinateFile fileName="mics/MicPos.txt" xCoordColumn="1" yCoordColumn="2" delimiter="," />
 					</sensorArray> -->
 					<!-- Export node result -->
-					<!-- <nodeResult type="acouPotentialD1">
+					<!-- <nodeResult type="acouPressure">
 						<allRegions />
 						<nodeList>
 							<nodes name="mic1" />
 							<nodes name="mic2" />
 						</nodeList>
-					</nodeResult>
-					< Export element result >
-					<elemResult type="acouIntensity">
+					</nodeResult> -->
+					<!-- Export element result > -->
+					<!-- <elemResult type="acouPressure">
 						<allRegions />
 						<elemList>
 							<elems name="mic1e" />

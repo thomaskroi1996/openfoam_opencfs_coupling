@@ -1,0 +1,166 @@
+
+=======================================================================
+ openCFS - Coupled Field Simulation
+
+ v. 25.08 - 'Just Jacobians' ce482d
+ compiled Oct 14 2025 as DEBUG (distributable)
+
+ openCFS is using 1 OpenMP threads
+=======================================================================
+
+Simulation run started at 2025-Oct-14 14:38:08 on DESKTOP-FP4OP26
+++ Reading parameter file '/home/thk/openfoam_opencfs_coupling/openCFS/propagation.xml'
+++ Creating hdf5 writer with ID 'hdf5'
+++ Creating text writer with ID 'txt'
+++ Reading mesh ... "sourceRegion.cfs" -> not regular
+Using TransientDriverPrecice
+++ Creating PDE 'acoustic' for analysis 'transient'
+PreciceAdapter: Configuration parameters:
+  Participant Name: openCFS
+  Participant Mesh Name: openCFSMesh
+  Precice Config File: /home/thk/openfoam_opencfs_coupling/precice-config.xml
+  Sequence Step: 1
+PreciceAdapter: reading precice configuration from file: /home/thk/openfoam_opencfs_coupling/precice-config.xml
+Number of participants: 2
+Participant: openFOAM
+Participant: openCFS
+PreciceAdapter: setting up mesh and coordinates...
+Not yet initialized
+PreciceAdapter: creating PreCICE participant...
+---[precice] [0m This is preCICE version 3.2.0
+---[precice] [0m Revision info: no-info [git failed to run]
+---[precice] [0m Build type: Release (without debug log)
+---[precice] [0m Working directory "/home/thk/openfoam_opencfs_coupling/openCFS"
+---[precice] [0m Configuring preCICE with configuration "/home/thk/openfoam_opencfs_coupling/precice-config.xml"
+---[precice] [0m I am participant "openCFS"
+PreciceAdapter: created PreCICE participant 'openCFS' with config file '/home/thk/openfoam_opencfs_coupling/precice-config.xml'
+PreciceAdapter: Registered 0 write-data entries.
+PreciceAdapter: Preparing to register read-data entry: Pressure on mesh: openCFSMesh with dimension: 1
+CFSName is: acouPressure
+PreciceAdapter: Registered 1 read-data entries.
+PreciceAdapter: Registered mesh 'openCFSMesh' with 20200 nodes.
+PreciceAdapter: Precice participant created.
+---[precice] [0m Setting up primary communication to coupling partner/s
+---[precice] [0m Primary ranks are connected
+---[precice] [0m Setting up preliminary secondary communication to coupling partner/s
+---[precice] [0m Prepare partition for mesh openCFSMesh
+---[precice] [0m Gather mesh openCFSMesh
+---[precice] [0m Send global mesh openCFSMesh
+---[precice] [0m Receive global mesh openFOAMMesh
+---[precice] [0m Setting up secondary communication to coupling partner/s
+---[precice] [0m Secondary ranks are connected
+---[precice] [0m Computing "nearest-neighbor" mapping from mesh "openFOAMMesh" to mesh "openCFSMesh" in "read" direction.
+---[precice] [0m Mapping distance min:0.0235582 max:0.0235664 avg: 0.0235617 var: 2.72821e-12 cnt: 200
+---[precice] [0m Mapping "Pressure" for t=0 from "openFOAMMesh" to "openCFSMesh" (skipped zero sample)
+---[precice] [0m Mapping "Pressure" for t=5e-05 from "openFOAMMesh" to "openCFSMesh"
+---[precice] [0m iteration: 1, time-window: 1 of 20, time: 0, time-window-size: 5e-05, max-time-step-size: 5e-05, ongoing: yes, time-window-complete: no
+PreciceAdapter: Registered SinglePDE.
+PreciceAdapter: Registering external results with OpenCFS result handler...
+ResultHandler initialised
+runtimeReadResults.size() = 1
+regions.ToString() (PreciceAdapter.cc): 1
+0x633df196f510
+Registering result: (ResultHandler.cc)
+-------------------
+name: acouPressure
+dofs: 
+resultList: internal
+saveBegin: 0
+saveEnd: 201
+saveInc: 1
+writeResult: 1
+isFinal: 0
+outputDest: 
+postProcId: 
+-------------------
+Registering result: (ResultHandler.cc)
+-------------------
+name: acouIntensity
+dofs: x, y
+resultList: internal
+saveBegin: 0
+saveEnd: 2147483647
+saveInc: 1
+writeResult: 1
+isFinal: 0
+outputDest: 
+postProcId: 
+-------------------
+Registering result: (ResultHandler.cc)
+-------------------
+name: acouIntensity
+dofs: x, y
+resultList: mic1e
+saveBegin: 0
+saveEnd: 2147483647
+saveInc: 1
+writeResult: 1
+isFinal: 0
+outputDest: 
+postProcId: 
+-------------------
+Registering result: (ResultHandler.cc)
+-------------------
+name: acouIntensity
+dofs: x, y
+resultList: mic2e
+saveBegin: 0
+saveEnd: 2147483647
+saveInc: 1
+writeResult: 1
+isFinal: 0
+outputDest: 
+postProcId: 
+-------------------
+
+ [01;34mWARNING:[0m
+ Result 'acouPressure' on 'internal' was not provided in step 1
+
+(/home/thk/cfs_precice/source/DataInOut/ResultHandler.cc, Line 293)
+
+entity list: internal result info: name = acouPressure dofs 1
+
+***********************************************************************
+[01;31m SIMULATION RUN FAILED!  -  CAUGHT EXCEPTION:[0m
+
+
+Vector: invalid access to index 0 when size is 0
+
+In file '/home/thk/cfs_precice/source/MatVec/Vector.hh' at line 574
+
+
+***********************************************************************
+
+There are still objects open in the hdf5 file results_hdf5/propagation.cfs
+
+Number of open objects: in file results_hdf5/propagation.cfs
+--------------------------
+Datasets: 0
+Groups: 6
+object name: /Results
+  Group
+  Trying to dec refcounter of HDF5 ID 33554435...
+  Trying to dec refcounter of HDF5 ID 33554435...
+object name: /Results/Mesh
+  Group
+  Trying to dec refcounter of HDF5 ID 33554437...
+  Trying to dec refcounter of HDF5 ID 33554437...
+object name: /Results/Mesh/MultiStep_1
+  Group
+  Trying to dec refcounter of HDF5 ID 33554438...
+  Trying to dec refcounter of HDF5 ID 33554438...
+object name: /Results/History
+  Group
+  Trying to dec refcounter of HDF5 ID 33554439...
+  Trying to dec refcounter of HDF5 ID 33554439...
+object name: /Results/History/MultiStep_1
+  Group
+  Trying to dec refcounter of HDF5 ID 33554440...
+  Trying to dec refcounter of HDF5 ID 33554440...
+object name: /Results/Mesh/MultiStep_1/Step_1
+  Group
+  Trying to dec refcounter of HDF5 ID 33554441...
+  Trying to dec refcounter of HDF5 ID 33554441...
+DataTypes: 0
+Attributes: 0
+---[precice] [0m Close communication channels

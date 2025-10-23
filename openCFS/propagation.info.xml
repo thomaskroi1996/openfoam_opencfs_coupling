@@ -6,17 +6,17 @@ Vector: invalid access to index 0 when size is 0
 In file '/home/thk/cfs_precice/source/MatVec/Vector.hh' at line 574
 ">
   <summary>
-    <timer wall-clock="43.41s" wall="43.409" cpu="21.5331" calls="1"/>
+    <timer wall-clock="28.87s" wall="28.868" cpu="19.1172" calls="1"/>
   </summary>
   <header id="">
-    <environment started="2025-Oct-16 13:54:33" host="DESKTOP-FP4OP26"/>
+    <environment started="2025-Oct-23 12:35:28" host="DESKTOP-FP4OP26"/>
     <progOpts problem="propagation" parameterFile="/home/thk/openfoam_opencfs_coupling/openCFS/propagation.xml" schemaPath="/home/thk/cfs_precice/share/xml" meshFile="" logConfFile="" detailed="no">
-      <cfs version="25.08" name="Just Jacobians" build="DEBUG" git_commit="9bba5b06ac9423b799c7206ae24565c705e43927-modified" git_branch="thk_precice_opencfs" compiled="Oct 16 2025" exe="/home/thk/cfs_precice/build/bin/cfs"/>
+      <cfs version="25.08" name="Just Jacobians" build="DEBUG" git_commit="f104e1853f32ade14cefcb428dbced61a0c70337" git_branch="thk_precice_opencfs" compiled="Oct 23 2025" exe="/home/thk/cfs_precice/build/bin/cfs"/>
       <openmp CFS_NUM_THREADS="1" MKL_NUM_THREADS="1" OMP_NUM_THREADS="1"/>
     </progOpts>
     <domain>
       <grids>
-        <timer wall-clock="1.998s" wall="1.998" cpu="1.99836" calls="1"/>
+        <timer wall-clock="2.019s" wall="2.019" cpu="2.0193" calls="1"/>
         <grid gridId="default" dimensions="2" elements="47900" nodes="47720"/>
       </grids>
       <coordinateSystems>
@@ -41,14 +41,14 @@ In file '/home/thk/cfs_precice/source/MatVec/Vector.hh' at line 574
       </namedElements>
     </domain>
     <results>
-      <timer wall-clock="21.39s" wall="21.392" cpu="0.003736" calls="2"/>
+      <timer wall-clock="0.082s" wall="0.082" cpu="0.046647" calls="12"/>
     </results>
   </header>
   <sequenceStep sequence="1">
     <transient>
       <header unit="s"/>
       <init_transient>
-        <timer wall-clock="6.006s" wall="6.006" cpu="5.52169" calls="1"/>
+        <timer wall-clock="7.811s" wall="7.811" cpu="7.36351" calls="1"/>
       </init_transient>
     </transient>
     <PDE>
@@ -79,12 +79,6 @@ In file '/home/thk/cfs_precice/source/MatVec/Vector.hh' at line 574
                 <column pde="acoustic" functionId="0" result="acouPressure"/>
                 <destination feMatrix="mass" feMatrixMapped="mass" feSecondMatrix="no_fe_matrix" feSecondMatrixFac="0.0  "/>
                 <attributes entryType="RealPart" counterPart="no" symmetric="yes" solutionDependent="no" updatedGeo="no"/>
-              </bilinearForm>
-              <bilinearForm integrator="acouPML_BgradP" type="ABDInt" complex="no" BOp="GradientOperator" coef="CoefFunctionCompound_double" region="pml">
-                <row pde="acoustic" functionId="1" result="acouPmlAuxVec"/>
-                <column pde="acoustic" functionId="0" result="acouPressure"/>
-                <destination feMatrix="stiffness" feMatrixMapped="stiffness" feSecondMatrix="no_fe_matrix" feSecondMatrixFac="0.0  "/>
-                <attributes entryType="RealPart" counterPart="no" symmetric="no" solutionDependent="no" updatedGeo="no"/>
               </bilinearForm>
               <bilinearForm integrator="LaplaceIntegrator" type="BBInt" complex="no" BOp="GradientOperator" region="pml">
                 <coef type="CoefFunctionConst" value="1"/>
@@ -132,6 +126,12 @@ In file '/home/thk/cfs_precice/source/MatVec/Vector.hh' at line 574
                 <destination feMatrix="stiffness" feMatrixMapped="stiffness" feSecondMatrix="no_fe_matrix" feSecondMatrixFac="0.0  "/>
                 <attributes entryType="RealPart" counterPart="no" symmetric="yes" solutionDependent="no" updatedGeo="no"/>
               </bilinearForm>
+              <bilinearForm integrator="acouPML_BgradP" type="ABDInt" complex="no" BOp="GradientOperator" coef="CoefFunctionCompound_double" region="pml">
+                <row pde="acoustic" functionId="1" result="acouPmlAuxVec"/>
+                <column pde="acoustic" functionId="0" result="acouPressure"/>
+                <destination feMatrix="stiffness" feMatrixMapped="stiffness" feSecondMatrix="no_fe_matrix" feSecondMatrixFac="0.0  "/>
+                <attributes entryType="RealPart" counterPart="no" symmetric="no" solutionDependent="no" updatedGeo="no"/>
+              </bilinearForm>
               <bilinearForm integrator="LaplaceIntegrator" type="BBInt" complex="no" BOp="GradientOperator" region="prop">
                 <coef type="CoefFunctionConst" value="1"/>
                 <row pde="acoustic" functionId="0" result="acouPressure"/>
@@ -139,28 +139,14 @@ In file '/home/thk/cfs_precice/source/MatVec/Vector.hh' at line 574
                 <destination feMatrix="stiffness" feMatrixMapped="stiffness" feSecondMatrix="no_fe_matrix" feSecondMatrixFac="0.0  "/>
                 <attributes entryType="RealPart" counterPart="no" symmetric="yes" solutionDependent="no" updatedGeo="no"/>
               </bilinearForm>
-              <bilinearForm integrator="penalty_v1_u1" type="ABInt" complex="no" region="NC1">
+              <bilinearForm integrator="flux_v1_du1" type="ABInt" complex="no" region="NC1">
                 <coef type="CoefFunctionConst" value="1"/>
                 <row pde="acoustic" functionId="0" result="acouPressure"/>
                 <column pde="acoustic" functionId="0" result="acouPressure"/>
                 <destination feMatrix="stiffness" feMatrixMapped="stiffness" feSecondMatrix="no_fe_matrix" feSecondMatrixFac="0.0  "/>
                 <attributes entryType="RealPart" counterPart="no" symmetric="yes" solutionDependent="no" updatedGeo="no"/>
               </bilinearForm>
-              <bilinearForm integrator="penalty_v2_u2" type="ABInt" complex="no" region="NC2">
-                <coef type="CoefFunctionConst" value="1"/>
-                <row pde="acoustic" functionId="0" result="acouPressure"/>
-                <column pde="acoustic" functionId="0" result="acouPressure"/>
-                <destination feMatrix="stiffness" feMatrixMapped="stiffness" feSecondMatrix="no_fe_matrix" feSecondMatrixFac="0.0  "/>
-                <attributes entryType="RealPart" counterPart="no" symmetric="yes" solutionDependent="no" updatedGeo="no"/>
-              </bilinearForm>
-              <bilinearForm integrator="penalty_v1_u1" type="ABInt" complex="no" region="NC2">
-                <coef type="CoefFunctionConst" value="1"/>
-                <row pde="acoustic" functionId="0" result="acouPressure"/>
-                <column pde="acoustic" functionId="0" result="acouPressure"/>
-                <destination feMatrix="stiffness" feMatrixMapped="stiffness" feSecondMatrix="no_fe_matrix" feSecondMatrixFac="0.0  "/>
-                <attributes entryType="RealPart" counterPart="no" symmetric="yes" solutionDependent="no" updatedGeo="no"/>
-              </bilinearForm>
-              <bilinearForm integrator="penalty_v2_u2" type="ABInt" complex="no" region="NC1">
+              <bilinearForm integrator="flux_dv1_u1" type="ABInt" complex="no" region="NC2">
                 <coef type="CoefFunctionConst" value="1"/>
                 <row pde="acoustic" functionId="0" result="acouPressure"/>
                 <column pde="acoustic" functionId="0" result="acouPressure"/>
@@ -174,33 +160,26 @@ In file '/home/thk/cfs_precice/source/MatVec/Vector.hh' at line 574
                 <destination feMatrix="stiffness" feMatrixMapped="stiffness" feSecondMatrix="no_fe_matrix" feSecondMatrixFac="0.0  "/>
                 <attributes entryType="RealPart" counterPart="yes" symmetric="yes" solutionDependent="no" updatedGeo="no"/>
               </bilinearForm>
-              <bilinearForm integrator="flux_v1_du1" type="ABInt" complex="no" region="NC1">
+              <bilinearForm integrator="penalty_v1_u1" type="ABInt" complex="no" region="NC2">
                 <coef type="CoefFunctionConst" value="1"/>
                 <row pde="acoustic" functionId="0" result="acouPressure"/>
                 <column pde="acoustic" functionId="0" result="acouPressure"/>
                 <destination feMatrix="stiffness" feMatrixMapped="stiffness" feSecondMatrix="no_fe_matrix" feSecondMatrixFac="0.0  "/>
                 <attributes entryType="RealPart" counterPart="no" symmetric="yes" solutionDependent="no" updatedGeo="no"/>
               </bilinearForm>
-              <bilinearForm integrator="flux_dv1_u1" type="ABInt" complex="no" region="NC1">
+              <bilinearForm integrator="penalty_v2_u2" type="ABInt" complex="no" region="NC2">
                 <coef type="CoefFunctionConst" value="1"/>
                 <row pde="acoustic" functionId="0" result="acouPressure"/>
                 <column pde="acoustic" functionId="0" result="acouPressure"/>
                 <destination feMatrix="stiffness" feMatrixMapped="stiffness" feSecondMatrix="no_fe_matrix" feSecondMatrixFac="0.0  "/>
                 <attributes entryType="RealPart" counterPart="no" symmetric="yes" solutionDependent="no" updatedGeo="no"/>
               </bilinearForm>
-              <bilinearForm integrator="penalty_v1_u2" type="ABInt" complex="no" region="NC1">
+              <bilinearForm integrator="penalty_v1_u2" type="ABInt" complex="no" region="NC2">
                 <coef type="CoefFunctionConst" value="1"/>
                 <row pde="acoustic" functionId="0" result="acouPressure"/>
                 <column pde="acoustic" functionId="0" result="acouPressure"/>
                 <destination feMatrix="stiffness" feMatrixMapped="stiffness" feSecondMatrix="no_fe_matrix" feSecondMatrixFac="0.0  "/>
                 <attributes entryType="RealPart" counterPart="yes" symmetric="yes" solutionDependent="no" updatedGeo="no"/>
-              </bilinearForm>
-              <bilinearForm integrator="flux_dv1_u1" type="ABInt" complex="no" region="NC2">
-                <coef type="CoefFunctionConst" value="1"/>
-                <row pde="acoustic" functionId="0" result="acouPressure"/>
-                <column pde="acoustic" functionId="0" result="acouPressure"/>
-                <destination feMatrix="stiffness" feMatrixMapped="stiffness" feSecondMatrix="no_fe_matrix" feSecondMatrixFac="0.0  "/>
-                <attributes entryType="RealPart" counterPart="no" symmetric="yes" solutionDependent="no" updatedGeo="no"/>
               </bilinearForm>
               <bilinearForm integrator="flux_v1_du1" type="ABInt" complex="no" region="NC2">
                 <coef type="CoefFunctionConst" value="1"/>
@@ -216,12 +195,33 @@ In file '/home/thk/cfs_precice/source/MatVec/Vector.hh' at line 574
                 <destination feMatrix="stiffness" feMatrixMapped="stiffness" feSecondMatrix="no_fe_matrix" feSecondMatrixFac="0.0  "/>
                 <attributes entryType="RealPart" counterPart="yes" symmetric="yes" solutionDependent="no" updatedGeo="no"/>
               </bilinearForm>
-              <bilinearForm integrator="penalty_v1_u2" type="ABInt" complex="no" region="NC2">
+              <bilinearForm integrator="penalty_v1_u2" type="ABInt" complex="no" region="NC1">
                 <coef type="CoefFunctionConst" value="1"/>
                 <row pde="acoustic" functionId="0" result="acouPressure"/>
                 <column pde="acoustic" functionId="0" result="acouPressure"/>
                 <destination feMatrix="stiffness" feMatrixMapped="stiffness" feSecondMatrix="no_fe_matrix" feSecondMatrixFac="0.0  "/>
                 <attributes entryType="RealPart" counterPart="yes" symmetric="yes" solutionDependent="no" updatedGeo="no"/>
+              </bilinearForm>
+              <bilinearForm integrator="flux_dv1_u1" type="ABInt" complex="no" region="NC1">
+                <coef type="CoefFunctionConst" value="1"/>
+                <row pde="acoustic" functionId="0" result="acouPressure"/>
+                <column pde="acoustic" functionId="0" result="acouPressure"/>
+                <destination feMatrix="stiffness" feMatrixMapped="stiffness" feSecondMatrix="no_fe_matrix" feSecondMatrixFac="0.0  "/>
+                <attributes entryType="RealPart" counterPart="no" symmetric="yes" solutionDependent="no" updatedGeo="no"/>
+              </bilinearForm>
+              <bilinearForm integrator="penalty_v2_u2" type="ABInt" complex="no" region="NC1">
+                <coef type="CoefFunctionConst" value="1"/>
+                <row pde="acoustic" functionId="0" result="acouPressure"/>
+                <column pde="acoustic" functionId="0" result="acouPressure"/>
+                <destination feMatrix="stiffness" feMatrixMapped="stiffness" feSecondMatrix="no_fe_matrix" feSecondMatrixFac="0.0  "/>
+                <attributes entryType="RealPart" counterPart="no" symmetric="yes" solutionDependent="no" updatedGeo="no"/>
+              </bilinearForm>
+              <bilinearForm integrator="penalty_v1_u1" type="ABInt" complex="no" region="NC1">
+                <coef type="CoefFunctionConst" value="1"/>
+                <row pde="acoustic" functionId="0" result="acouPressure"/>
+                <column pde="acoustic" functionId="0" result="acouPressure"/>
+                <destination feMatrix="stiffness" feMatrixMapped="stiffness" feSecondMatrix="no_fe_matrix" feSecondMatrixFac="0.0  "/>
+                <attributes entryType="RealPart" counterPart="no" symmetric="yes" solutionDependent="no" updatedGeo="no"/>
               </bilinearForm>
             </matrixBiLinearForms>
             <rhsLinearForms/>
@@ -263,11 +263,6 @@ In file '/home/thk/cfs_precice/source/MatVec/Vector.hh' at line 574
             </h1Nodal>
           </TransientPMLVectorAuxVar>
         </feSpaces>
-        <externalData>
-          <defaultGrid>
-            <interpolation type="conservative" setBy="CFS++"/>
-          </defaultGrid>
-        </externalData>
         <feFunctions>
           <acouPressure/>
           <homDirichletBC/>
@@ -299,26 +294,25 @@ In file '/home/thk/cfs_precice/source/MatVec/Vector.hh' at line 574
           <pardiso hermitean="no" symStruct="no" symmetric="no" posDef="no" pardiso_matrix="11" solver="direct">
             <summary>
               <setup>
-                <timer label="setup_pardiso" wall-clock="0.323s" wall="0.323" cpu="0.320282" calls="1"/>
+                <timer label="setup_pardiso" wall-clock="0.325s" wall="0.325" cpu="0.319682" calls="1"/>
               </setup>
               <solve>
-                <timer label="solve_pardiso" wall-clock="0.03s" wall="0.03" cpu="0.030059" calls="1"/>
+                <timer label="solve_pardiso" wall-clock="0.014s" wall="0.014" cpu="0.014353" calls="1"/>
               </solve>
             </summary>
             <process>
               <call number="0">
-                <symbfact cpu="0.1899" wall="0.193" peakMem="57457" permanentMem="41733"/>
-                <numfact cpu="0.12818" wall="0.128" peakMem="54604"/>
+                <symbfact cpu="0.21635" wall="0.221" peakMem="57457" permanentMem="41733"/>
+                <numfact cpu="0.10105" wall="0.101" peakMem="54604"/>
               </call>
             </process>
-            <refinement hint="PARDISO reached the maximum number of iterative refinement steps (2) probably the tolerance is too small."/>
           </pardiso>
         </solver>
         <precond>
           <idPrecond>
             <summary>
               <precond_Id_setup>
-                <timer wall-clock="0s" wall="0" cpu="1e-06" calls="1"/>
+                <timer wall-clock="0s" wall="0" cpu="2e-06" calls="1"/>
               </precond_Id_setup>
               <precond_Id_run>
                 <timer wall-clock="0s" wall="0" cpu="0" calls="0"/>
@@ -326,22 +320,22 @@ In file '/home/thk/cfs_precice/source/MatVec/Vector.hh' at line 574
             </summary>
           </idPrecond>
         </precond>
-        <GetRidOfZeros zeros_removed="119914" cpu="0.028203" wall="0.028"/>
+        <GetRidOfZeros zeros_removed="119914" cpu="0.028663" wall="0.028"/>
         <process>
           <solver solutionIsOkay="yes"/>
         </process>
       </acoustic>
       <graph_setup>
-        <timer wall-clock="3.584s" wall="3.584" cpu="3.5856" calls="1" sub="true"/>
+        <timer wall-clock="5.003s" wall="5.003" cpu="5.00778" calls="1" sub="true"/>
       </graph_setup>
     </OLAS>
     <analysis>
       <summary>
         <assemble>
-          <timer wall-clock="7.492s" wall="7.492" cpu="7.49285" calls="2"/>
+          <timer wall-clock="8.973s" wall="8.973" cpu="8.9807" calls="2"/>
         </assemble>
       </summary>
     </analysis>
   </sequenceStep>
-  <warning lineNum="296" fileName="/home/thk/cfs_precice/source/DataInOut/ResultHandler.cc" message="Result 'acouPressure' on 'internal' was not provided in step 1"/>
+  <warning lineNum="305" fileName="/home/thk/cfs_precice/source/DataInOut/ResultHandler.cc" message="Result 'acouPressure' on 'internal' was not provided in step 1"/>
 </cfsInfo>

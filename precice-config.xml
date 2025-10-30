@@ -18,7 +18,7 @@
 
   <participant name="openFOAM">
     <provide-mesh name="openFOAMMesh" />
-    <receive-mesh name="openCFSMesh" from="openCFS" />
+    <!-- <receive-mesh name="openCFSMesh" from="openCFS" /> -->
     <write-data name="Pressure" mesh="openFOAMMesh" />
   </participant>
 
@@ -35,7 +35,7 @@
 
   <coupling-scheme:serial-explicit>
     <participants first="openFOAM" second="openCFS" />
-    <max-time-windows value="100" />
+    <max-time-windows value="20" />
     <time-window-size value="5e-5" />
     <exchange data="Pressure" mesh="openFOAMMesh" from="openFOAM" to="openCFS" />
   </coupling-scheme:serial-explicit>

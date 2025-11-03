@@ -2,3 +2,17 @@
 
 #Ignore vscode AI rules
 .github/instructions/codacy.instructions.md
+.codacy/*
+
+#openCFS
+openCFS/results_hdf5/propagation_luca.cfs
+openCFS/results_hdf5/propagation.cfs
+openCFS/history/*
+
+#openFoam 
+openFoam/*
+
+!openFoam/0
+!openFoam/constant
+!openFoam/precice-profiling
+!openFoam/system

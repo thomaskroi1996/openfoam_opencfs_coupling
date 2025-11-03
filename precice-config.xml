@@ -25,9 +25,9 @@
   <participant name="openCFS">
     <provide-mesh name="openCFSMesh" />
     <receive-mesh name="openFOAMMesh" from="openFOAM" />
-    <read-data name="Pressure" mesh="openCFSMesh" />
     <mapping:nearest-neighbor direction="read" from="openFOAMMesh" to="openCFSMesh"
       constraint="conservative" />
+    <read-data name="Pressure" mesh="openCFSMesh" />
   </participant>
 
   <m2n:sockets acceptor="openFOAM" connector="openCFS"
@@ -35,8 +35,8 @@
 
   <coupling-scheme:serial-explicit>
     <participants first="openFOAM" second="openCFS" />
-    <max-time-windows value="20" />
-    <time-window-size value="5e-5" />
+    <max-time-windows value="50" />
+    <time-window-size value="1e-3" />
     <exchange data="Pressure" mesh="openFOAMMesh" from="openFOAM" to="openCFS" />
   </coupling-scheme:serial-explicit>
 

@@ -29,3 +29,7 @@ UR: name = acouPressure dofs 1
 - in SimOutputHDF5.cc -> somehow code gets stuck there and crashes then. (tries to access vector of size 0 at index 0)
 
 - From here: figure out why we have 2 times acouPressure on internal? maybe XML issue?
+
+  ## 03.11.25:
+
+  Issue was fixed by simply mapping Pressure from preCICE to acouRhsLoad name in openCFS, on line 143 of PreciceAdapter.cc

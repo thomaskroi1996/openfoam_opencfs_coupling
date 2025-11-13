@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<cfsdat xmlns="http://www.cfs++.org/simulation"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.cfs++.org/simulation https://opencfs.gitlab.io/cfs/xml/CFS-Dat/CFS_Dat.xsd">
+	<documentation>
+		<title>Source calculation and interpolation</title>
+		<authors>
+			<author>Andreas Wurzinger</author>
+		</authors>
+		<date>2022-10-08</date>
+		<keywords>
+			<keyword>aeroacoustics</keyword>
+			<keyword>cfsdat</keyword>
+			<keyword>interpolation</keyword>
+		</keywords>
+		<references></references>
+		<isVerified>yes</isVerified>
+		<description> Calculation and conservative interpolation of the partial time derivative of the
+			incompressible flow pressure </description>
+	</documentation>
+	<pipeline>
+		<!-- Data definition -->
+		<stepValueDefinition>
+			<startStop>
+				<startStep value="0" />
+				<numSteps value="200" />
+				<startTime value="0.5" />
+				<delta value="1e-3" />
+				<deleteOffset value="yes" />
+			</startStop>
+		</stepValueDefinition>
+
+		<!-- Data Input -->
+		<meshInput id="input">
+			<inputFile>
+				<ensight fileName="../1_cfd/cfd/EnSight/cfd.case">
+					<variableList>
+						<variable CFSVarName="fluidMechPressure" EnsightVarName="p" />
+					</variableList>
+				</ensight>
+			</inputFile>
+		</meshInput>
+
+		<!-- Interpolation -->
+		<interpolation type="FieldInterpolation_NearestNeighbour" id="interp_NN" inputFilterIds="input">
+			<IntSchemeNN />
+			<useElemAsTarget>true</useElemAsTarget>
+			<targetMesh>
+				<hdf5 fileName="../0_mesh/CFD_2D.cfs" />
+			</targetMesh>
+			<singleResult>
+				<inputQuantity resultName="fluidMechPressure" />
+				<outputQuantity resultName="fluidMechPressure_interpolated_NN" />
+			</singleResult>
+			<regions>
+				<sourceRegions>
+					<region name="internal" />
+				</sourceRegions>
+				<targetRegions>
+					<region name="front" />
+				</targetRegions>
+			</regions>
+		</interpolation>
+
+		<interpolation type="FieldInterpolation_Conservative_CutCell" id="interp_Conservative"
+			inputFilterIds="interp_NN">
+			<targetMesh>
+				<hdf5 fileName="../0_mesh/sourceRegion.cfs" />
+			</targetMesh>
+			<singleResult>
+				<inputQuantity resultName="fluidMechPressure_interpolated_NN" />
+				<outputQuantity resultName="fluidMechPressure_interpolated_Conservative" />
+			</singleResult>
+			<regions>
+				<sourceRegions>
+					<region name="front" />
+				</sourceRegions>
+				<targetRegions>
+					<region name="internal" />
+				</targetRegions>
+			</regions>
+		</interpolation>
+
+		<!-- Time derivative -->
+		<timeDeriv1 inputFilterIds="interp_Conservative" id="dpdt">
+			<singleResult>
+				<inputQuantity resultName="fluidMechPressure_interpolated_Conservative" />
+				<outputQuantity resultName="acouRhsLoad" />
+			</singleResult>
+		</timeDeriv1>
+
+		<!-- Data Output -->
+		<meshOutput id="source_acouRhsLoad" inputFilterIds="dpdt">
+			<outputFile>
+				<hdf5 />
+			</outputFile>
+			<saveResults>
+				<result resultName="acouRhsLoad">
+					<allRegions />
+				</result>
+				<result resultName="fluidMechPressure_interpolated_Conservative">
+					<allRegions />
+				</result>
+			</saveResults>
+		</meshOutput>
+	</pipeline>
+</cfsdat>

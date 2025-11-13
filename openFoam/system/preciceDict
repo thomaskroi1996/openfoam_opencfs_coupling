@@ -19,7 +19,7 @@ interfaces
   {
     mesh              openFOAMMesh;
     patches           (inlet);
-    locations         faceCenters;
+    locations         volumeCenters;
 
     readData
     (

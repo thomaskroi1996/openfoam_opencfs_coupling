@@ -1,18 +1,18 @@
-
-
 #Ignore vscode AI rules
 .github/instructions/codacy.instructions.md
 .codacy/*
 
 #openCFS
-openCFS/results_hdf5/propagation_luca.cfs
-openCFS/results_hdf5/propagation.cfs
+cylinder_standard_way/3_ca/results_hdf5/propagation.cfs
 openCFS/history/*
+openCFS/results_hdf5/propagation.cfs
+openCFS/results_hdf5/propagation_dpdt.cfs
 
-#openFoam 
-openFoam/*
+#openFoam
+cylinder_standard_way/1_cfd/cfd/processor0/*/
+cylinder_standard_way/1_cfd/cfd/processor1/*/
+cylinder_standard_way/1_cfd/cfd/processor2/*/
+cylinder_standard_way/1_cfd/cfd/processor3/*/
 
-!openFoam/0
-!openFoam/constant
-!openFoam/precice-profiling
-!openFoam/system
+*:Zone.Identifier
+*.info.xml

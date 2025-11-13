@@ -6,7 +6,7 @@ This should be hopefully straightforward, when you have preCICE already installe
 Clone the repository:
 
 <pre>
-git clone https://github.com/thomaskroi1996/openfoam-adapter
+git clone https://github.com/thomaskroi1996/openfoam-adapter/tree/dp_dt
 cd openfoam-adapter
 ./Allclean                                                      #run this first in case there are some leftovers I accidentally commited
 ./Allwmake                                                      #this will build the adapter

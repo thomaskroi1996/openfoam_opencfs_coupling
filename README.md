@@ -6,7 +6,7 @@ This should be hopefully straightforward, when you have preCICE already installe
 Clone the repository:
 
 <pre>
-git clone https://github.com/thomaskroi1996/openfoam-adapter
+git clone https://github.com/thomaskroi1996/openfoam-adapter/tree/dp_dt
 cd openfoam-adapter
 ./Allclean                                                      #run this first in case there are some leftovers I accidentally commited
 ./Allwmake                                                      #this will build the adapter
@@ -82,6 +82,7 @@ In file '/home/thk/cfs_precice/source/DataInOut/ParamHandling/ParamNode.cc' at l
 </pre>
 
 - acouRhsLoad on internal exists twice in resultContexts, but one time the result functor is 0, eventually leading to a "cannot access element 0 of Vector with size 0" error when the output starts, and simulation fails. Why does it exist twice?
+
 
 - Artefacts in the source region, perhaps some issue with reading in nodal values? 
 

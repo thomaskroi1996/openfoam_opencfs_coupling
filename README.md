@@ -56,7 +56,7 @@ The most important files are:
 - openFoam/system/controlDict
 - openFoam/system/preciceDict
 
-cylinder_standard_way is a folder containing where the cylinder example is calculated in the standard way.
+cylinder_standard_way is a folder containing the cylinder example simulated in the standard way.
 
 openFoam_dpdt is a folder that is already designed to run using the PressureTemporalDerivative class in the openfoam adapter.
 
@@ -82,3 +82,10 @@ In file '/home/thk/cfs_precice/source/DataInOut/ParamHandling/ParamNode.cc' at l
 </pre>
 
 - acouRhsLoad on internal exists twice in resultContexts, but one time the result functor is 0, eventually leading to a "cannot access element 0 of Vector with size 0" error when the output starts, and simulation fails. Why does it exist twice?
+
+- Artefacts in the source region, perhaps some issue with reading in nodal values? 
+
+
+oldTime() method in Adapter.C and writeCheckpoint for pressure derivative? maybe it is more efficient that way?
+
+added definitions and Object instatiations into FF.H and FF.C so tomorrow test if finally PressureTemporalDerivative gets created

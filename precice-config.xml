@@ -37,7 +37,9 @@
     <participants first="openFOAM" second="openCFS" />
     <max-time-windows value="201" />
     <time-window-size value="1e-3" />
+    <!-- <max-iterations value="100" /> -->
     <exchange data="Pressure" mesh="openFOAMMesh" from="openFOAM" to="openCFS" />
+    <!-- <relative-convergence-measure limit="1e-4" data="Pressure" mesh="openFOAMMesh" /> -->
   </coupling-scheme:serial-explicit>
 
 </precice-configuration>

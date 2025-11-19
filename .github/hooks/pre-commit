@@ -1,0 +1,12 @@
+#!/bin/bash
+# Prevent committing files > 100MB
+max_size=100000000  # bytes (100 MB)
+for file in $(git diff --cached --name-only); do
+  if [ -f "$file" ]; then
+    size=$(stat -c%s "$file")
+    if [ "$size" -gt "$max_size" ]; then
+      echo "Error: $file is larger than 100MB ($((size/1000000)) MB)"
+      exit 1
+    fi
+  fi
+done

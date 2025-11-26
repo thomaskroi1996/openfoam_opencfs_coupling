@@ -83,10 +83,8 @@ In file '/home/thk/cfs_precice/source/DataInOut/ParamHandling/ParamNode.cc' at l
 
 - acouRhsLoad on internal exists twice in resultContexts, but one time the result functor is 0, eventually leading to a "cannot access element 0 of Vector with size 0" error when the output starts, and simulation fails. Why does it exist twice?
 
+- Artefacts in the source region, likely some issue with reading in nodal values
 
-- Artefacts in the source region, perhaps some issue with reading in nodal values? 
-
-
-oldTime() method in Adapter.C and writeCheckpoint for pressure derivative? maybe it is more efficient that way?
-
-added definitions and Object instatiations into FF.H and FF.C so tomorrow test if finally PressureTemporalDerivative gets created
+## Notes
+- oldTime() method in Adapter.C and writeCheckpoint for pressure derivative? maybe it is more efficient that way?
+- in FF.C we add CouplingDataWriters.

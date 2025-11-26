@@ -88,3 +88,23 @@ In file '/home/thk/cfs_precice/source/DataInOut/ParamHandling/ParamNode.cc' at l
 ## Notes
 - oldTime() method in Adapter.C and writeCheckpoint for pressure derivative? maybe it is more efficient that way?
 - in FF.C we add CouplingDataWriters.
+
+## Changes made in openCFS and openfoam_adapter
+
+### openCFS:
+
+These commits are all on the thk_precice_opencfs branch of openCFS.
+
+- add a lot of std::cout for debugging
+- 13f0d569: move if statement to check result type because dimDof was not set yet in CoefFunctionGridNodalDefaultPrecice.cc
+- 7e1e4b77: call GetNodeResult instead of GetElemResult in CoefFunctionGridNodalDefaultPrecice.cc
+- 36a303ae: check if we have a result functor in ResultHandler.cc
+    - this is just a workaround, we shouldn't have to change ResultHandler.cc to make this work. this issue is connected to the problem of having acouRhsLoad twice in our results, one time with a result functor that is 0, so the error is thrown, and therefore we had to move it out. ideally, acouRhsLoad would only be once in the results, with a non 0 result functor
+- 1912b112: map the precice variable Pressure (or PressureTemporalDerivative) to acouRhsLoad solutiontype in PreciceAdapter.cc
+
+### openfoam_adapter:
+These commits are all on the dp_dt branch of my personal fork of the openfoam_adapter (the one you installed with the link above).
+
+- first write a simple skeleton of how the derivative could look like, by implementing a new class PressureTemporalDerivative (.C & .H) that inherits from CouplingDataWriter.
+- improve upon this sketch, initialise pOld_ (which is p(t-1), definitely should be renamed if we implement higher order schemes) to a buffer instead of openFoam object
+- make the necessary changes in Adapter, FF, PressureTemporalDerivative, Interface .C and .H files, so that the new class gets correctly called when we have PressureTemporalDerivative in openFoam_dpdt/system/preciceDict.

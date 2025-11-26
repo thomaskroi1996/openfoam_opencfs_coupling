@@ -14,7 +14,7 @@ cd openfoam-adapter
 
 ## Building openCFS with preCICE enabled
 
-The most up-do-date branch is thk_precice_opencfs
+The most up-do-date branches are thk_precice_opencfs or Candussi_kroppert_precice_opencfs (for test cases)
 
 <pre>
 git clone https://gitlab.com/openCFS/cfs/-/tree/thk_precice_opencfs?ref_type=heads

@@ -66,21 +66,6 @@ graph.png is a visualisation of the precice configuration file used, made with t
 cylinder_standard_way/3_ca/results_hdf5/propagation.cfs is how the simulation should look like
 
 ## Known issues
-- When using the cfs build with USE_PRECICE=ON, you have to use precice in the simulation xml, otherwise:
-
-<pre>
-***********************************************************************
- SIMULATION RUN FAILED!  -  CAUGHT EXCEPTION:
-
-
-element 'fileFormats' has no child 'name'
-
-In file '/home/thk/cfs_precice/source/DataInOut/ParamHandling/ParamNode.cc' at line 701
-
-
-***********************************************************************
-</pre>
-
 - acouRhsLoad on internal exists twice in resultContexts, but one time the result functor is 0, eventually leading to a "cannot access element 0 of Vector with size 0" error when the output starts, and simulation fails. Why does it exist twice?
 
 - Artefacts in the source region, likely some issue with reading in nodal values
@@ -108,3 +93,13 @@ These commits are all on the dp_dt branch of my personal fork of the openfoam_ad
 - first write a simple skeleton of how the derivative could look like, by implementing a new class PressureTemporalDerivative (.C & .H) that inherits from CouplingDataWriter.
 - improve upon this sketch, initialise pOld_ (which is p(t-1), definitely should be renamed if we implement higher order schemes) to a buffer instead of openFoam object
 - make the necessary changes in Adapter, FF, PressureTemporalDerivative, Interface .C and .H files, so that the new class gets correctly called when we have PressureTemporalDerivative in openFoam_dpdt/system/preciceDict.
+
+## Further steps:
+Number 1 priority should be fixing reading nodal values, so that we don't have artefacts
+    - write temporal derivative to file
+
+Right hand side values is not written out
+
+Only source region -> whole pipeline, check interpolation, grids, and use 3D only
+
+write hashmap functionality to write pressure out
